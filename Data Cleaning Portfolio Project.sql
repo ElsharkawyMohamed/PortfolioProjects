@@ -9,7 +9,9 @@ Select *
 From PortfolioProject.dbo.NashvilleHousing
 -----------------------------------------------------------------------------------------
 
+
 -- Standardize Date Formate
+
 
 Select SaleDate, Convert(Date,SaleDate)
 From PortfolioProject.dbo.NashvilleHousing
@@ -25,7 +27,6 @@ SET SaleDateConverted = Convert(Date,SaleDate)
 
 Select SaleDateConverted
 From PortfolioProject.dbo.NashvilleHousing
-
 -----------------------------------------------------------------------------------------
 
 -- Populate Property Address data
@@ -33,7 +34,11 @@ From PortfolioProject.dbo.NashvilleHousing
 
 Select *
 From PortfolioProject.dbo.NashvilleHousing
+
+
 --Where PropertyAddress is null
+
+
 order by ParcelID
 
 
@@ -55,6 +60,7 @@ JOIN PortfolioProject.dbo.NashvilleHousing B
 -----------------------------------------------------------------------------------------
 
 -- Breaking out Address into individual Columns (Address, City, State)
+
 
 Select PropertyAddress
 From PortfolioProject.dbo.NashvilleHousing
@@ -83,6 +89,7 @@ Add PropertySplitCity Nvarchar(225);
 
 Update Nashvillehousing
 SET PropertySplitCity = SUBSTRING(PropertyAddress, CHARINDEX(',', PropertyAddress) +1 , LEn(PropertyAddress))
+
 
 Select *
 From PortfolioProject.dbo.NashvilleHousing
@@ -124,16 +131,16 @@ Add OwnerSplitState Nvarchar(225);
 
 Update Nashvillehousing
 SET OwnerSplitState = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1)
-
-
 -----------------------------------------------------------------------------------------
 
 -- Change Y and N to Yes and No in "Sold as vacant" field
+
 
 Select Distinct(SoldAsVacant), count(SoldAsVacant)
 From PortfolioProject.dbo.NashvilleHousing
 Group by SoldAsVacant
 order by 2
+
 
 Select SoldAsVacant
 , Case when SoldAsVacant = 'Y' Then 'Yes'
@@ -148,7 +155,6 @@ SET SoldAsVacant = Case when SoldAsVacant = 'Y' Then 'Yes'
        when SoldAsVacant = 'N' Then 'No'
 	   Else SoldAsVacant
 	   END
-
 -----------------------------------------------------------------------------------------
 
 -- Remove Duplicates
@@ -172,10 +178,10 @@ From PortfolioProject.dbo.NashvilleHousing
 Delete
 From RowNumCTE
 where row_num > 1
+-----------------------------------------------------------------------------------------
+
 --Order by PropertyAddress
 
-
------------------------------------------------------------------------------------------
 
 -- Delete Unused Columns
 
