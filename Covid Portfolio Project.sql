@@ -45,7 +45,6 @@ where continent is not null
 Group by location
 order by TotalDeathsCount desc
 
--- LET'S BREAK THINGS DOWN BY CONTINENT
 -- Showing conintents with the highest death count per population 
 
 Select location, Max(total_Deaths) as TotalDeathsCount
